@@ -1137,6 +1137,36 @@ No cards carved yet — every card will use its printed stats.</pre
       </div>
     </footer>
 
+    <div
+      class="motion-nudge"
+      id="motionNudge"
+      role="region"
+      aria-label="Animation tip"
+      hidden
+    >
+      <p class="mn-msg">
+        Prefer less motion? You can switch the card animations off for instant
+        actions.
+      </p>
+      <div class="mn-acts">
+        <button
+          type="button"
+          class="cact add"
+          id="mnGo"
+          data-tip="Jump to the setting and highlight the checkbox."
+        >
+          Show me the setting
+        </button>
+        <button
+          type="button"
+          class="cact"
+          id="mnNever"
+          data-tip="Do not show this tip again on this device."
+        >
+          Don't remind me again
+        </button>
+      </div>
+    </div>
     <script src="js/app.js"></script>
     <div class="toast" id="toast" role="status" aria-live="polite" hidden>
       <span class="toast-msg"></span

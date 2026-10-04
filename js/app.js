@@ -3015,6 +3015,103 @@ function initMotionToggle() {
   applyMotionPref();
 }
 
+/* A one-time, unobtrusive nudge pointing at the Reduce-animations toggle —
+   the checkbox is easy to miss. It appears only after a card-removal
+   animation has actually played and the Build section has been seen,
+   and never if the user already reduced motion or dismissed it. */
+const MOTION_NUDGE_KEY = "carvingTable.motionNudgeDismissed.v1";
+let nudgeDismissed = false;
+try {
+  nudgeDismissed = localStorage.getItem(MOTION_NUDGE_KEY) === "1";
+} catch (err) {}
+let animActivated = false,
+  buildSeen = false,
+  nudgeShown = false,
+  nudgeTimer = 0;
+function noteAnimationPlayed() {
+  animActivated = true;
+  maybeShowNudge();
+}
+function maybeShowNudge() {
+  if (
+    nudgeShown ||
+    nudgeDismissed ||
+    motionOff ||
+    !animActivated ||
+    !buildSeen ||
+    nudgeTimer
+  )
+    return;
+  nudgeTimer = setTimeout(() => {
+    nudgeTimer = 0;
+    if (nudgeShown || nudgeDismissed || motionOff) return;
+    const n = document.getElementById("motionNudge");
+    if (!n) return;
+    nudgeShown = true;
+    n.hidden = false;
+    requestAnimationFrame(() => n.classList.add("on"));
+  }, 2600);
+}
+function hideNudge() {
+  const n = document.getElementById("motionNudge");
+  if (!n) return;
+  n.classList.remove("on");
+  setTimeout(() => {
+    if (!n.classList.contains("on")) n.hidden = true;
+  }, 220);
+}
+function initMotionNudge() {
+  const n = document.getElementById("motionNudge");
+  if (!n) return;
+  const never = document.getElementById("mnNever"),
+    go = document.getElementById("mnGo");
+  if (never)
+    never.onclick = () => {
+      nudgeDismissed = true;
+      try {
+        localStorage.setItem(MOTION_NUDGE_KEY, "1");
+      } catch (err) {}
+      hideNudge();
+    };
+  if (go)
+    go.onclick = () => {
+      hideNudge();
+      const sec = document.getElementById("build");
+      const lbl = document.querySelector(".motion-toggle");
+      if (sec)
+        sec.scrollIntoView({
+          behavior: calmNow() ? "auto" : "smooth",
+          block: "start",
+        });
+      if (lbl) {
+        lbl.classList.add("flash");
+        const cb = document.getElementById("motionToggle");
+        if (cb) cb.focus({ preventScroll: true });
+        setTimeout(() => lbl.classList.remove("flash"), 2600);
+      }
+    };
+  n.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") hideNudge();
+  });
+  const build = document.getElementById("build");
+  if (build && "IntersectionObserver" in window) {
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            buildSeen = true;
+            maybeShowNudge();
+          }
+        });
+      },
+      { threshold: 0 },
+    );
+    io.observe(build);
+  } else {
+    buildSeen = true;
+  }
+}
+
 /* ---- candle nav: light the candle for the section you are in ---- */
 function initCandleNav() {
   const links = [...document.querySelectorAll(".candlenav a[data-sec]")];
@@ -3115,6 +3212,7 @@ function sacrificeCard(index, then) {
     el.closest(".slot") ? "0deg" : (off * 3.4).toFixed(2) + "deg",
   );
   el.classList.add("burning");
+  noteAnimationPlayed();
   let done = false;
   const finish = () => {
     if (done) return;
@@ -6621,6 +6719,7 @@ initGlitch();
 initTooltips();
 initAdvancedReveal();
 initMotionToggle();
+initMotionNudge();
 readStore();
 renderStoreNote();
 renderKindChips();
