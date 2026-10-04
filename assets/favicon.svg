@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+  <title>Dark woodcut-inspired favicon</title>
+  <desc>Simplified high-contrast emblem based on the uploaded artwork.</desc>
+
+  <defs>
+    <radialGradient id="eye" cx="50%" cy="50%" r="65%">
+      <stop offset="0" stop-color="#ffd36a"/>
+      <stop offset=".45" stop-color="#ff8a22"/>
+      <stop offset="1" stop-color="#8d160d"/>
+    </radialGradient>
+    <linearGradient id="hood" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#6d1113"/>
+      <stop offset=".55" stop-color="#35090c"/>
+      <stop offset="1" stop-color="#12080a"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Enlarged for better visibility at favicon sizes -->
+  <g transform="translate(-19.2 -19.2) scale(1.15)">
+  <!-- antler / crown silhouette -->
+  <path fill="#07151a" d="
+    M48 75 L61 45 L54 26 L68 47 L78 19 L82 49
+    L101 32 L94 57 L115 45 L103 70
+    L153 70 L141 45 L162 57 L155 32 L174 49
+    L178 19 L188 47 L202 26 L195 45 L208 75
+    L184 86 L72 86 Z"/>
+
+  <!-- hood -->
+  <path fill="url(#hood)" d="
+    M128 42
+    C91 45 57 76 38 116
+    C31 131 29 153 34 174
+    L56 160
+    C69 183 86 198 103 211
+    L128 225
+    L153 211
+    C170 198 187 183 200 160
+    L222 174
+    C227 153 225 131 218 116
+    C199 76 165 45 128 42 Z"/>
+
+  <!-- face -->
+  <path fill="#090b0d" stroke="#241315" stroke-width="5" d="
+    M73 139
+    C78 111 99 91 128 89
+    C157 91 178 111 183 139
+    L173 184
+    C160 205 145 217 128 221
+    C111 217 96 205 83 184 Z"/>
+
+  <!-- brow / mask ridges -->
+  <path fill="none" stroke="#501316" stroke-width="12" stroke-linecap="round"
+        d="M76 130 Q100 108 119 121 M137 121 Q156 108 180 130"/>
+  <path fill="none" stroke="#22090b" stroke-width="8" stroke-linecap="round"
+        d="M82 174 Q102 191 128 194 Q154 191 174 174"/>
+
+  <!-- glowing eye sockets -->
+  <ellipse cx="99" cy="145" rx="25" ry="29" fill="#170b0b" stroke="#6b1712" stroke-width="5"/>
+  <ellipse cx="157" cy="145" rx="25" ry="29" fill="#170b0b" stroke="#6b1712" stroke-width="5"/>
+
+  <!-- simplified spiral eyes -->
+  <g fill="none" stroke="url(#eye)" stroke-width="6" stroke-linecap="round">
+    <path d="M100 145
+             C91 134 84 145 89 154
+             C95 165 109 160 111 148
+             C113 135 100 128 91 134"/>
+    <path d="M156 145
+             C165 134 172 145 167 154
+             C161 165 147 160 145 148
+             C143 135 156 128 165 134"/>
+  </g>
+
+  <!-- nose / central mask -->
+  <path fill="#3b0d10" d="M128 143 L139 166 L128 181 L117 166 Z"/>
+  <path fill="#d04720" d="M128 150 L132 165 L128 170 L124 165 Z"/>
+
+  <!-- tiny woodcut scratches -->
+  <g stroke="#8a2420" stroke-width="3" stroke-linecap="round" opacity=".65">
+    <path d="M58 121l13-8 M52 134l12-5 M198 121l-13-8 M204 134l-12-5"/>
+    <path d="M70 190l12 8 M186 190l-12 8"/>
+  </g>
+  </g>
+</svg>

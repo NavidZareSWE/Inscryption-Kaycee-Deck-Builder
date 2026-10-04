@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<title>The Carving Table — Kaycee's Mod starter deck forge</title>
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<nav class="candlenav" aria-label="Sections">
+  <ul>
+    <li><a href="#guide"    data-sec="guide"    data-tip="Jump to the beginner guide: what this tool does and how to use it."><span class="candle" aria-hidden="true"></span><span class="lbl">Guide</span></a></li>
+    <li><a href="#build"    data-sec="build"    data-tip="Jump to the builder: pick a ready-made deck or build your own, card by card."><span class="candle" aria-hidden="true"></span><span class="lbl">Build</span></a></li>
+    <li><a href="#save"     data-sec="save"     data-tip="Jump to the save step: open your file and download the patched copy."><span class="candle" aria-hidden="true"></span><span class="lbl">Save</span></a></li>
+    <li><a href="#advanced" data-sec="advanced" data-tip="Jump to the advanced section: manual JSON editing and reference tables."><span class="candle" aria-hidden="true"></span><span class="lbl">Advanced</span></a></li>
+    <li><a href="#about"    data-sec="about"    data-tip="Jump to limitations, project links and copyright."><span class="candle" aria-hidden="true"></span><span class="lbl">About</span></a></li>
+  </ul>
+</nav>
+
+<header class="masthead">
+  <div class="wrap">
+    <div class="eyebrow">Inscryption · Kaycee's Mod · no mod loader required</div>
+    <h1>The Carving Table</h1>
+    <p class="lede">Build your Kaycee's Mod starting deck by clicking cards — no JSON, no mods, nothing to install. When you are happy with it, this page writes the change straight into your save file for you. There is also an <a href="#advanced">advanced section</a> if you would rather edit the save's text by hand.</p>
+    <div class="tag-row">
+      <span class="tag">No JSON needed</span>
+      <span class="tag">Patches in your browser</span>
+      <span class="tag">Steam / GOG PC</span>
+    </div>
+  </div>
+</header>
+
+<section id="guide">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Beginner guide</h2>
+      <span class="hint">start here — no JSON knowledge needed</span>
+    </div>
+
+    <div class="warn" style="margin-top:0">
+      <b>Back up your save file before making any changes.</b> Copy <code>SaveFile.gwsave</code> somewhere safe first. If anything goes wrong, putting the backup back undoes it completely. See <a href="#about">limitations and the disclaimer</a> at the bottom of the page.
+    </div>
+
+    <div class="guide-grid">
+      <div class="guide-card">
+        <h3>What is this?</h3>
+        <p>A fan-made tool for <b>Inscryption</b>'s <b>Kaycee's Mod</b>. It lets you choose which cards your run begins with — and, if you want, change their power, health, cost and sigils — then puts that deck into your game's save file. You do not need to install anything or understand how save files work.</p>
+      </div>
+      <div class="guide-card">
+        <h3>What is a custom starting deck?</h3>
+        <p>Normally Kaycee's Mod deals you one of a few fixed starter hands. This tool lets you pick any starter deck you like instead, so you can try a theme, a challenge, or just a hand you think is fun — without playing for hours to unlock it.</p>
+      </div>
+    </div>
+
+    <h3 class="guide-h">How to use it — the short way</h3>
+    <ol class="steps guide-steps">
+      <li>
+        <h3>Start a Kaycee's Mod run first</h3>
+        <p>Open Inscryption, start Kaycee's Mod, pick your challenges and a starter deck, and as soon as the run begins, <b>quit to the main menu</b> (do not end the run). The deck you are about to change only exists once a run has been created. Leave the game closed while you work.</p>
+      </li>
+      <li>
+        <h3>Build your deck here</h3>
+        <p>In <a href="#build">the builder</a>, pick a ready-made deck from the shelf, or add cards from the catalogue one by one. Click a card on your board to change its stats or sigils. You never see any JSON.</p>
+      </li>
+      <li>
+        <h3>Patch your save file</h3>
+        <p>In the <a href="#save">Save step</a>, choose your <code>SaveFile.gwsave</code>. The page rewrites just your Kaycee's Mod deck and hands the file back to you to download. Everything happens in your browser — nothing is uploaded anywhere.</p>
+      </li>
+      <li>
+        <h3>Put the file back and play</h3>
+        <p>Replace the <code>SaveFile.gwsave</code> in your game folder with the downloaded one (your browser may rename it — rename it back to <code>SaveFile.gwsave</code>). Then open the game and continue your run. Your new deck is there.</p>
+      </li>
+    </ol>
+
+    <div class="note">
+      <b>Where is the save file?</b> It is in the game's install folder, not Documents. On Steam: right-click Inscryption → <em>Manage</em> → <em>Browse local files</em>, and look for <code>SaveFile.gwsave</code>. There is also a <code>SaveFile-Backup.gwsave</code> that the game writes itself — leave that one alone.
+    </div>
+
+    <div class="note">
+      <b>If something goes wrong</b> — the run will not load, or the deck looks broken — close the game and put your backup copy of <code>SaveFile.gwsave</code> back in the folder. That returns everything to how it was. This is why the backup at the top of this guide matters.
+    </div>
+  </div>
+</section>
+
+<section id="build">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Build your deck</h2>
+      <span class="hint">click a card to add it · click it on the board to carve it · hover, tab to or long-press anything to see what it does</span>
+    </div>
+
+    <!-- THE SHELF -->
+    <div class="panel shelf">
+      <div class="panel-head">
+        <h3>The shelf</h3>
+        <span class="hint" id="shelfCount"></span>
+      </div>
+      <div class="panel-body">
+        <p class="shelf-intro">
+          Decks already cut and waiting. The first eight are the hands Kaycee's Mod deals you; the rest are
+          constraints to carve under — a shape to obey rather than a pile of strong cards. Pick one up and it
+          fills the board below, where you can still carve it. Anything you build yourself can be laid on this
+          shelf too, and it will be here when you come back.
+        </p>
+        <div class="chips" id="kindChips" role="group" aria-label="Filter presets by kind"></div>
+        <div class="shelf-grid" id="shelfGrid"></div>
+        <div class="save-row">
+          <input type="text" id="presetName" placeholder="Name this deck…" aria-label="Preset name" maxlength="42" data-tip="A name for the deck on the board. Saving under a name you&#x27;ve already used replaces that saved deck. Enter saves.">
+          <button class="act primary" id="btnSavePreset" data-tip="Save the deck on the board — cards and carvings — to the shelf under the name you typed. It stays in this browser for your next visit, if the browser allows it.">Lay it on the shelf</button>
+          <button class="act" id="btnExport" data-tip="Download all the decks you&#x27;ve saved as a .json file, to back them up or move them to another browser.">Export mine</button>
+          <button class="act" id="btnImport" data-tip="Bring back decks from a file made with Export mine. A deck with the same name as one you already have replaces it.">Import</button>
+          <input type="file" id="fileImport" accept="application/json,.json" class="is-hidden">
+        </div>
+        <p class="store-note is-hidden" id="storeNote"></p>
+      </div>
+    </div>
+
+    <div class="forge">
+      <!-- CATALOG -->
+      <div class="panel catalog-panel">
+        <div class="panel-head">
+          <h3>Card catalog</h3>
+          <span class="hint" id="catCount"></span>
+        </div>
+        <div class="panel-body">
+          <input type="text" id="search" placeholder="Search by name or file name…" aria-label="Search cards" data-tip="Filter the catalog by a card&#x27;s printed name or its internal file name — the name the save file uses.">
+          <div class="chips" id="groupChips" role="group" aria-label="Card set"></div>
+          <div class="chips" id="costChips" role="group" aria-label="Cost filter"></div>
+          <div class="catalog" id="catalog"></div>
+        </div>
+      </div>
+
+      <!-- BOARD + EDITOR -->
+      <div style="display:grid;gap:22px;align-content:start">
+        <div class="panel">
+          <div class="panel-head deck-head">
+            <div class="dh-l">
+              <h3>Your starting deck</h3>
+              <span class="deck-tagline" id="deckTag" data-tip="Where the deck on the board came from: a deck from the shelf, or your own. “Carved since” means you&#x27;ve changed it after loading it.">The board is bare</span>
+            </div>
+            <button class="act danger" id="btnClear" data-tip="Take every card off the board at once. You can undo it straight after; decks on the shelf aren't touched.">Empty the deck</button>
+          </div>
+          <div class="panel-body">
+            <div class="deck-meta" style="margin-bottom:14px">
+              <span data-tip="How many cards the run will start with.">Cards <b id="mCount">0</b></span>
+              <span data-tip="The Blood cost of every Blood card, cheapest first, after your carvings.">Blood curve <b id="mBlood">—</b></span>
+              <span data-tip="The Bones cost of every Bones card, cheapest first, after your carvings.">Bones <b id="mBones">—</b></span>
+              <span data-tip="How many cards carry a carving — a changed name, stat, cost or sigil.">Carved <b id="mMods">0</b></span>
+            </div>
+            <div class="board" id="board"></div>
+            <p class="board-hint" id="boardHint" hidden></p>
+            <p style="color:#9d9384;font-size:14px;margin:16px 0 0">
+              Kaycee's Mod normally deals you three creatures plus two Rabbit Pelts. Nothing stops you going bigger — but a deck under three cards can break events that expect cards to draw.
+            </p>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head">
+            <h3 id="edTitle">Carving</h3>
+            <span class="hint" id="edSub">nothing selected</span>
+          </div>
+          <div class="panel-body editor" id="editor">
+            <div class="editor-empty">Select a card on the board to change its power, health, cost, name and sigils.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="save">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Put it in your game</h2>
+      <span class="hint">load your save, download the patched copy</span>
+    </div>
+
+    <div class="warn" style="margin-top:0">
+      <b>Back up <code>SaveFile.gwsave</code> first.</b> Keep a copy somewhere safe before you replace the one in your game folder.
+    </div>
+
+    <div class="panel sp" id="savePatch">
+      <div class="panel-head">
+        <h3>Patch your save directly</h3>
+        <span class="hint">import · rewrite the deck · export</span>
+      </div>
+      <div class="panel-body">
+        <p class="sp-lede">Open your save (<code>SaveFile.gwsave</code> — the name and extension don't matter, only the contents) and the forge rewrites the Kaycee's Mod deck — cards, stats and sigils — then hands the file back to you. Only <code>ascensionData → currentRun → playerDeck</code> is rewritten; the rest of the file is copied through as-is. <b>Keep a copy of your original save</b> before you replace it.</p>
+        <div class="sp-row">
+          <button class="act" id="spPick" type="button" data-tip="Choose your save file (usually SaveFile.gwsave). Any extension works — only the contents matter. The file is read in this browser; nothing is uploaded.">Open save file…</button>
+          <input type="file" id="spFile" class="is-hidden">
+          <span class="sp-file" id="spFileName">no file loaded — any extension, or drop it on this panel</span>
+        </div>
+        <div id="spFound" aria-live="polite"></div>
+        <label class="sp-check" data-tip="On: cards you haven&#x27;t carved keep modifications the run already gave them, such as the Annoying sigil from Annoying Starters.
+Off: those are removed, so the deck matches exactly what you built here."><input type="checkbox" id="spKeep"> <span>Keep the run's own modifications on cards I haven't carved <em>(e.g. the Annoying sigil that Annoying Starters adds)</em></span></label>
+        <div id="spPlan"></div>
+        <div class="sp-row">
+          <button class="act primary" id="spGo" type="button" disabled data-tip="Write your deck into the save and download the patched copy. The result is read back and checked first — if any check fails, nothing is downloaded.">Patch &amp; download</button>
+        </div>
+        <div id="spReport" aria-live="polite"></div>
+      </div>
+    </div>
+
+    <p class="hand-pointer">Prefer to edit the save's text yourself? The copy-paste blocks and reference tables are in the <a href="#advanced">Advanced section</a>.</p>
+  </div>
+</section>
+
+<section id="advanced">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Advanced</h2>
+      <span class="hint">manual JSON editing — not needed for normal use</span>
+    </div>
+
+    <div class="note adv-callout">
+      <b>You do not need this section.</b> The builder and the Save step above do everything for a normal custom deck. This is here only if you want to edit the save file's text by hand, or read the raw card and sigil data.
+    </div>
+
+    <details class="advanced-wrap" id="advDetails">
+      <summary>Show the advanced tools — manual JSON editing &amp; reference tables</summary>
+      <div class="advanced-body">
+
+        <h3 class="adv-h">Editing the save by hand</h3>
+        <div class="warn" style="margin-top:0">
+          <b>Back up the save file first.</b> A single missing comma or bracket will stop the file loading, and the only clean fix is putting the backup back.
+        </div>
+        <ol class="steps">
+      <li>
+        <h3>Find the save file</h3>
+        <p>It lives in the game's install folder, not in Documents. On Steam: right-click Inscryption → <em>Manage</em> → <em>Browse local files</em>. The path is usually something like <code>…\steamapps\common\Inscryption</code>.</p>
+        <p>The file you want is <code>SaveFile.gwsave</code>. There is also a <code>SaveFile-Backup.gwsave</code> the game writes itself — leave that one alone.</p>
+      </li>
+
+      <li>
+        <h3>Open it as JSON</h3>
+        <p>Despite the extension, it is plain text laid out like JSON — not strictly valid JSON, since a few values are written without quotes, so some JSON tools will complain while plain text editors won't. Notepad works. Notepad++ or VS Code is much better, because you can set the language to JSON and collapse sections — the file is thousands of lines long.</p>
+      </li>
+
+      <li>
+        <h3>Start a Kaycee's Mod run, then quit to the main menu</h3>
+        <p>The deck you are about to edit only exists once a run has been created. So: open Kaycee's Mod, pick your challenges and starter deck, and as soon as the run begins, quit to the main menu. Leave the game closed while you edit.</p>
+        <div class="warn">
+          <b>Quit to menu — don't end the run.</b> Deliberately <em>ending</em> a run in the first area is what triggers the anti-reset-scumming rule, where one of your Rabbit Pelts is replaced with an Opossum, and then a Ring Worm on the next abandon. Quitting to the menu mid-run does not do that.
+        </div>
+      </li>
+
+      <li>
+        <h3>Find the right deck — there are two of them</h3>
+        <p>Search for <code>playerDeck</code>. You will get more than one hit, because the file holds the base Act I game and Kaycee's Mod side by side:</p>
+        <pre><span class="c">// the FIRST one — this is the normal Act I story run. Not this one.</span>
+<span class="k">"currentRun"</span>: { … <span class="k">"playerDeck"</span>: { … } }
+
+<span class="c">// the one you want — nested under ascensionData</span>
+<span class="k">"ascensionData"</span>: {
+  <span class="k">"currentRun"</span>: {
+    <span class="k">"playerDeck"</span>: {
+      <span class="k">"cardIds"</span>: { … }        <span class="c">← edit this</span></pre>
+        <p>Quickest way to be sure: search for <code>ascensionData</code> first, then search downward from there for <code>playerDeck</code>.</p>
+      </li>
+
+      <li>
+        <h3>Replace the card list</h3>
+        <p>Inside <code>cardIds</code> you will find <code>"$rlength"</code> (how many cards) and <code>"$rcontent"</code> (the list of internal card names). Paste in your new list and make the number match.</p>
+        <pre><span class="k">"cardIds"</span>: {
+  <span class="k">"$id"</span>: 1234,          <span class="c">← leave your own numbers alone</span>
+  <span class="k">"$type"</span>: 8,
+  <span class="k">"$rlength"</span>: 3,        <span class="c">← must equal the number of entries below</span>
+  <span class="k">"$rcontent"</span>: [
+    <span class="s">"Stoat"</span>,
+    <span class="s">"Bullfrog"</span>,
+    <span class="s">"Wolf"</span>
+  ]
+},</pre>
+        <p>If <code>$rlength</code> is smaller than the list, the extra cards are silently dropped. If it is larger, the game can crash. Keep the <code>$id</code> and <code>$type</code> values that are already in <em>your</em> file — they are file-specific.</p>
+        <p><b>The forge below writes this block for you.</b></p>
+      </li>
+
+      <li>
+        <h3>Save, launch, continue</h3>
+        <p>Save the file with the same name. If you are using Notepad, use <em>Save As</em>, set the file type to <em>All Files</em>, and type the full name <code>SaveFile.gwsave</code> so it doesn't become <code>SaveFile.gwsave.txt</code>.</p>
+        <p>Open the game and continue your Kaycee's Mod run. Your new cards are in the deck.</p>
+      </li>
+
+      <li>
+        <h3>Want custom power, health, cost or sigils too? Do this extra pass</h3>
+        <p>Stats and sigils live in a second block, <code>cardIdModInfos</code>, in the same <code>playerDeck</code>. On a fresh run most cards have an empty modification record, which is awkward to fill in by hand.</p>
+        <p>The reliable trick is to make the game write the records for you: start the run with the <b>Annoying Starters</b> challenge enabled. That challenge stamps the Annoying sigil (ID <code>76</code>) onto every starting card, so each card gets a complete, correctly-typed modification record. Then you just change the numbers inside it.</p>
+        <pre><span class="k">"cardIdModInfos"</span>: {
+  …
+  <span class="k">"$rcontent"</span>: [
+    {
+      <span class="k">"$k"</span>: <span class="s">"Wolf"</span>,              <span class="c">← the card. 2nd copy = "Wolf#1", 3rd = "Wolf#2"</span>
+      <span class="k">"$v"</span>: { …
+        <span class="k">"nameReplacement"</span>: <span class="s">"Fenrir"</span>,
+        <span class="k">"attackAdjustment"</span>: 4,     <span class="c">← added to base power</span>
+        <span class="k">"healthAdjustment"</span>: 3,     <span class="c">← added to base health</span>
+        <span class="k">"abilities"</span>: {
+          <span class="k">"$rlength"</span>: 2,
+          <span class="k">"$rcontent"</span>: [ 24, 15 ]  <span class="c">← sigil IDs (76 was Annoying)</span>
+        },
+        <span class="k">"bloodCostAdjustment"</span>: -1,
+        <span class="k">"bonesCostAdjustment"</span>: 0,
+      … }
+    }
+  ]
+}</pre>
+        <p>The adjustments are <b>differences, not final values</b>. A Wolf is 3/2, so <code>attackAdjustment: 4</code> gives you a 7. The forge does that arithmetic and prints the exact field values per card.</p>
+      </li>
+    </ol>
+
+        <h3 class="adv-h">Copy the exact lines</h3>
+        <div class="note">
+      <b>Editing by hand instead?</b> The tabs below hold the exact lines for <code>ascensionData → currentRun → playerDeck</code>. Each card's carving lives in <code>cardIdModInfos</code> under the card's file name as <code>"$k"</code> — a second copy is <code>Name#1</code>, a third <code>Name#2</code> — and a key that isn't in your deck's <code>cardIds</code> is never read. So change the card list in tab 1 first, then carve under the new names.
+    </div>
+        <div class="panel">
+      <div class="tabs" role="tablist">
+        <button role="tab" aria-selected="true" data-pane="p1" data-tip="The card list in the exact shape of the save&#x27;s cardIds block — for editing the save by hand.">1 · Card list</button>
+        <button role="tab" aria-selected="false" data-pane="p2" data-tip="Which fields to change in cardIdModInfos, card by card, to apply your carvings by hand.">2 · Stats &amp; sigils</button>
+        <button role="tab" aria-selected="false" data-pane="p3" data-tip="Complete modification records to paste in whole. For advanced hand-editing.">3 · Raw block (advanced)</button>
+      </div>
+      <div class="panel-body">
+
+        <div class="out-pane on" id="p1">
+          <p style="color:#bdb29c;margin-top:0">Replace the <code>$rlength</code> and <code>$rcontent</code> inside <code>ascensionData → currentRun → playerDeck → cardIds</code>. Keep the <code>$id</code> and <code>$type</code> lines that are already there.</p>
+          <div class="copybar"><span class="lbl">cardIds</span><button class="act primary" data-copy="outCards" data-tip="Copy this block to the clipboard.">Copy</button></div>
+          <pre id="outCards">Add cards in the forge above.</pre>
+        </div>
+
+        <div class="out-pane" id="p2">
+          <p style="color:#bdb29c;margin-top:0">Start the run with the <b>Annoying Starters</b> challenge on so the game writes a full modification record for every starting card, then set these fields inside <code>cardIdModInfos</code>.</p>
+          <div class="copybar"><span class="lbl">field values, card by card</span><button class="act primary" data-copy="outMods" data-tip="Copy this block to the clipboard.">Copy</button></div>
+          <pre id="outMods">No cards carved yet — every card will use its printed stats.</pre>
+        </div>
+
+        <div class="out-pane" id="p3">
+          <p style="color:#bdb29c;margin-top:0">A complete <code>$v</code> record you can paste over an existing one.</p>
+
+          <div class="panel" style="margin:0 0 14px;border-color:rgba(224,168,56,.35)">
+            <div class="panel-head">
+              <h3>Your save's type numbers</h3>
+              <span class="hint" id="tnHint">defaults from a sample save — open yours above to fill these in</span>
+            </div>
+            <div class="panel-body">
+              <p style="color:#bdb29c;margin-top:0;font-size:13.5px">These numbers differ from save to save. Open your save in <b>Patch your save directly</b> above and they are filled in for you. By hand: search your file for <code>CardModificationInfo</code> — the first hit spells out <code>"N|DiskCardGame.CardModificationInfo, Assembly-CSharp"</code> — put that <code>N</code> in the box, then do the same for the other five.</p>
+              <div class="grid2" style="grid-template-columns:repeat(3,minmax(140px,1fr));gap:12px 14px">
+                <div class="field" style="margin-bottom:0">
+                  <label for="tnList">List&lt;CardModificationInfo&gt;</label>
+                  <input type="number" id="tnList" value="14" data-tip="The number your save uses for List&lt;CardModificationInfo&gt;. Search your save for that type — it&#x27;s the number before the “|” where the type first appears. Only the raw block in this tab uses it.">
+                </div>
+                <div class="field" style="margin-bottom:0">
+                  <label for="tnMod">CardModificationInfo</label>
+                  <input type="number" id="tnMod" value="19" data-tip="The number your save uses for CardModificationInfo. Search your save for that type — it&#x27;s the number before the “|” where the type first appears. Only the raw block in this tab uses it.">
+                </div>
+                <div class="field" style="margin-bottom:0">
+                  <label for="tnAbility">abilities / negateAbilities</label>
+                  <input type="number" id="tnAbility" value="7" data-tip="The number your save uses for the list of sigils (List&lt;Ability&gt;). Search your save for that type — it&#x27;s the number before the “|” where the type first appears. Only the raw block in this tab uses it.">
+                </div>
+                <div class="field" style="margin-bottom:0">
+                  <label for="tnGem">addGemCost</label>
+                  <input type="number" id="tnGem" value="20" data-tip="The number your save uses for the list of gem costs (List&lt;GemType&gt;). Search your save for that type — it&#x27;s the number before the “|” where the type first appears. Only the raw block in this tab uses it.">
+                </div>
+                <div class="field" style="margin-bottom:0">
+                  <label for="tnSpecial">specialAbilities</label>
+                  <input type="number" id="tnSpecial" value="21" data-tip="The number your save uses for the list of special abilities (List&lt;SpecialTriggeredAbility&gt;). Search your save for that type — it&#x27;s the number before the “|” where the type first appears. Only the raw block in this tab uses it.">
+                </div>
+                <div class="field" style="margin-bottom:0">
+                  <label for="tnDecal">decalIds</label>
+                  <input type="number" id="tnDecal" value="9" data-tip="The number your save uses for the decal list. Search your save for that type — it&#x27;s the number before the “|” where the type first appears. Only the raw block in this tab uses it.">
+                </div>
+              </div>
+              <div class="field" style="margin:14px 0 0;max-width:240px">
+                <label for="tnStartId">First free $id to use</label>
+                <input type="number" id="tnStartId" value="552" data-tip="The first $id the raw blocks will use. It must be higher than every $id already in your save; each carved card uses the next 7 numbers.">
+              </div>
+              <p style="color:#9d9384;font-size:12px;margin:10px 0 0" id="tnIdNote">It must be higher than every <code>$id</code> already in your save — opening your save above fills it in. Carving more than one card counts up from here, each card using the next 7 numbers, so nothing collides even if you paste several at once.</p>
+            </div>
+          </div>
+
+          <div class="warn" style="margin-top:0">
+            <b>Still the safer route:</b> tab 2, editing a record the game already wrote (via the Annoying Starters trick), beats typing a brand-new one from scratch — fewer fields to get wrong. Use this tab when that isn't an option.
+          </div>
+          <div class="copybar"><span class="lbl">cardIdModInfos → $rcontent entry</span><button class="act primary" data-copy="outRaw" data-tip="Copy this block to the clipboard.">Copy</button></div>
+          <pre id="outRaw">Carve a card in the forge above.</pre>
+        </div>
+
+      </div>
+    </div>
+
+        <h3 class="adv-h">Reference tables</h3>
+        <div class="two-col">
+      <div>
+        <h3 style="font-size:17px;margin-bottom:12px;color:var(--parchment-hi)">Sigil IDs</h3>
+        <p style="color:#a49a86;font-size:14px;margin-top:0">These are the numbers that go in <code>abilities.$rcontent</code> and <code>negateAbilities.$rcontent</code>. 1–98 are the base game, 99–106 were added by Kaycee's Mod.</p>
+        <input type="search" id="sigSearch" data-tip="Filter by name, effect, #ID, act (e.g. “act iii”), or caution type (“boss”, “unused”). Several words narrow it down." placeholder="Filter sigils — name, effect, #ID, act, “boss”, “unused”…" aria-label="Filter sigils" style="margin-bottom:10px">
+        <div class="scrollbox"><table class="ref"><thead><tr><th>ID</th><th>Sigil</th><th>Effect</th></tr></thead><tbody id="sigTable"></tbody></table></div>
+      </div>
+      <div>
+        <h3 style="font-size:17px;margin-bottom:12px;color:var(--parchment-hi)">Card file names</h3>
+        <p style="color:#a49a86;font-size:14px;margin-top:0">The string on the left is what the game calls the card in <code>cardIds</code>. The name on the right is what it says on the card face.</p>
+        <input type="text" id="cardSearch" data-tip="Filter by printed name or internal file name." placeholder="Filter card names…" aria-label="Filter card names" style="margin-bottom:10px">
+        <div class="scrollbox"><table class="ref"><thead><tr><th>File name</th><th>Card</th><th>Where</th></tr></thead><tbody id="cardTable"></tbody></table></div>
+      </div>
+    </div>
+
+    <h3 style="font-size:17px;margin:34px 0 12px;color:var(--parchment-hi)">Tribe IDs</h3>
+    <p style="color:#a49a86;font-size:14px;margin-top:0">Used by the <code>totems</code> record, not by cards. 1 Squirrel · 2 Avian · 3 Canine · 4 Hooved · 5 Reptile · 6 Insect.</p>
+
+      </div>
+    </details>
+  </div>
+</section>
+
+<section id="limits">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Warnings &amp; limitations</h2>
+      <span class="hint">what the save data does and does not allow</span>
+    </div>
+
+    <div class="warn" style="margin-top:0">
+      <b>Back up your save file before making any changes.</b> If a patched save will not load, putting your backup copy back returns everything to normal.
+    </div>
+
+    <p class="limits-intro">Some things are limited by what the game's save data actually allows. What is known today:</p>
+    <ul class="limits-list">
+      <li>Only the <b>Kaycee's Mod</b> starting deck (Act I) is changed. The tool does not touch the normal Act I story run, Act II or Act III.</li>
+      <li>Cards from Act II and Act III can be added to the list, but many are uncastable or misbehave in Leshy's cabin. This has not been verified to work, so treat it as experimental.</li>
+      <li>Some sigils are built for one specific card or for a boss, and can break the game on an ordinary card. The builder marks these with a caution sign and lets you filter them out.</li>
+      <li>Sigil IDs above 106 are not defined. A negative final cost or final health can crash the game when the card is drawn — keep the totals sensible.</li>
+      <li>Kaycee's Mod nerfs some cards on purpose: Ouroboros resets to 1/1 every run, and Stoat is 1/2 rather than the story mode's 1/3.</li>
+    </ul>
+
+    <div class="note disclaimer">
+      <b>Disclaimer.</b> You are responsible for your own save files. This is an unofficial fan tool, provided as-is with no warranty; the author is not responsible for corrupted, lost, or otherwise damaged save files. Always keep a backup of <code>SaveFile.gwsave</code> before making changes.
+    </div>
+  </div>
+</section>
+
+<footer id="about">
+  <div class="wrap">
+    <div class="sec-head"><h2>About &amp; links</h2></div>
+
+    <p class="about-lede">The Carving Table is an unofficial, free fan tool that makes it easy to try custom starting decks in Kaycee's Mod — even if you have never touched JSON or a save file. It runs entirely in your browser as a static website.</p>
+
+    <ul class="links">
+      <li><a href="https://github.com/NavidZareSWE" target="_blank" rel="noopener">Project author on GitHub — <b>@NavidZareSWE</b></a></li>
+      <li><b>Found a bug</b>, or a card or sigil that behaves oddly? Please open an issue on the project's GitHub repository so it can be looked into.</li>
+      <li><b>Like it?</b> A star on the repository, or sharing it with another Kaycee's Mod player, is genuinely appreciated.</li>
+    </ul>
+
+    <h3 class="adv-h">Credits &amp; sources</h3>
+    
+    <p style="color:#9d9384;font-family:var(--serif);font-size:15px;line-height:1.7;max-width:760px">
+      Card faces and sigil glyphs are sliced out of the Inscryption card-list reference sheets, packed into two sprite-sheet image files that ship with this project. Forty sigils had a card carrying them alone, which is what made a clean cut possible. Most of the sigils seen in Act III — gems, conduits, batteries, latches and the rest — have icons hand-drawn for this page after the in-game ones, so they are recognisable without copying the art; Bomb Latch, Brittle Latch and Gem Spawn Conduit follow the look of their family rather than a picture of that exact icon. Anything still shown as a plain circular emblem has no reference art at all — that means "no picture", not a different kind of sigil.</p>
+    <p style="color:#9d9384;font-family:var(--serif);font-size:15px;line-height:1.7;max-width:760px;margin-top:14px">
+      Power, health, cost and printed sigils are taken from the reference sheets and cross-checked against the Inscryption Wiki's Act I table. Where the two disagreed the card's own printed face won: Beaver is 1/3, Skunk carries Stinky, and Amoeba carries Amorphous. Internal card file names and the sigil ID list are read out of jlcrochet's open-source save editor. Save-file structure, the modification-record shape and the Annoying Starters trick come from IceHippo's Steam guide and the Kaycee's Mod General Info site.
+    </p>
+    <ul class="srcs" style="list-style:none;padding:0;margin-top:20px">
+      <li><a href="https://inscryption.fandom.com/wiki/Kaycee%27s_Mod" target="_blank" rel="noopener">Inscryption Wiki — Kaycee's Mod</a></li>
+      <li><a href="https://inscryption.fandom.com/wiki/Cards" target="_blank" rel="noopener">Inscryption Wiki — Cards (Act I table)</a></li>
+      <li><a href="https://steamcommunity.com/sharedfiles/filedetails/?id=2664149823" target="_blank" rel="noopener">IceHippo — Custom decks and cards by editing save files</a></li>
+      <li><a href="https://sites.google.com/view/kaycees-mod-general-info/cheats/save-edit" target="_blank" rel="noopener">Kaycee's Mod General Info — Save Editing</a></li>
+      <li><a href="https://sites.google.com/view/kaycees-mod-general-info/unlocks/cards" target="_blank" rel="noopener">Kaycee's Mod General Info — Cards</a></li>
+      <li><a href="https://github.com/jlcrochet/inscryption_save_editor" target="_blank" rel="noopener">jlcrochet/inscryption_save_editor</a></li>
+    </ul>
+    <p style="margin-top:22px">Fan tool. Inscryption is © Daniel Mullins Games. Card faces and some sigil glyphs come from community reference sheets of the game's cards, as described above; the other sigil icons, the frames and the textures are drawn by this page.</p>
+  
+
+    <p class="copyright">Copyright © 2026 NavidZareSWE. All rights reserved. · <a href="https://github.com/NavidZareSWE" target="_blank" rel="noopener">@NavidZareSWE</a></p>
+  </div>
+</footer>
+
+<script src="js/app.js"></script>
+<div class="toast" id="toast" role="status" aria-live="polite" hidden><span class="toast-msg"></span><button type="button" class="cact" id="toastUndo" data-tip="Put things back the way they were just before that.">Undo</button></div>
+</body>
+</html>
