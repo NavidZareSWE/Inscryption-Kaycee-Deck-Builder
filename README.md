@@ -1,7 +1,7 @@
 # The Carving Table
 
 ![Inscryption Kaycee's Mod](https://res.cloudinary.com/dyjew8iji/image/upload/v1791092926/kaycee-s-mod-feat-image_utt7ps.jpg)
-A free, browser-based fan tool for building a **custom starting deck in Kaycee's Mod** (the roguelike mode of the game *Inscryption*) — and writing it straight into your save file, without editing any text by hand.
+A free, browser-based fan tool for building a **custom starting deck in Kaycee's Mod** (the roguelike mode of the game _Inscryption_) — and writing it straight into your save file, without editing any text by hand.
 
 It runs entirely in your browser as a static website. Nothing is installed, and your save file is never uploaded anywhere — all the work happens on your own computer.
 
@@ -11,7 +11,7 @@ It runs entirely in your browser as a static website. Nothing is installed, and 
 
 ## Project goal
 
-Kaycee's Mod normally gives you one of a few fixed starter hands. People who want a *different* starting deck usually have to hand-edit the game's save file, which is a large text file in a JSON-like format — fiddly and easy to break.
+Kaycee's Mod normally gives you one of a few fixed starter hands. People who want a _different_ starting deck usually have to hand-edit the game's save file, which is a large text file in a JSON-like format — fiddly and easy to break.
 
 This tool is meant for people who:
 
@@ -28,9 +28,9 @@ You pick cards from a visual catalogue, optionally change their stats and sigils
 > **⚠️ Back up your save file before making any changes.**
 > Copy `SaveFile.gwsave` somewhere safe first. If anything goes wrong, putting the backup back undoes it completely.
 
-1. **Start a Kaycee's Mod run first.** Open the game, start a run, then quit to the main menu (don't *end* the run). The deck you're about to change only exists once a run has been created.
+1. **Start a Kaycee's Mod run first.** Open the game, start a run, then quit to the main menu (don't _end_ the run). The deck you're about to change only exists once a run has been created.
 2. **Build your deck** on the site: pick a ready-made deck from the shelf, or add cards from the catalogue and carve their stats/sigils.
-3. **Patch your save** in the *Put it in your game* section: choose your `SaveFile.gwsave`, and download the rewritten copy.
+3. **Patch your save** in the _Put it in your game_ section: choose your `SaveFile.gwsave`, and download the rewritten copy.
 4. **Put the file back** in your game folder (rename it to `SaveFile.gwsave` if your browser changed the name) and continue your run.
 
 The save file lives in the game's install folder, not Documents. On Steam: right-click Inscryption → **Manage → Browse local files**, and look for `SaveFile.gwsave`. Leave the game's own `SaveFile-Backup.gwsave` alone.
@@ -94,7 +94,7 @@ No pressure — the tool is free either way.
 
 ## TODO
 
-1. Investigate whether Act 2 and Act 3 cards can also be changed. *(Not verified — Act 2/3 cards can currently be added to the list, but it is not confirmed that they work correctly in a Kaycee's Mod run.)*
+1. Investigate whether Act 2 and Act 3 cards can also be changed. _(Not verified — Act 2/3 cards can currently be added to the list, but it is not confirmed that they work correctly in a Kaycee's Mod run.)_
 2. Investigate and fix remaining sigil-related bugs where possible.
 3. Investigate possible workarounds for sigils that currently cannot be played or handled correctly.
 
@@ -112,7 +112,7 @@ Some things are limited by what the game's save data actually allows. What is kn
 - Sigil IDs above 106 are not defined. A negative final cost or final health can crash the game when the card is drawn.
 - Kaycee's Mod nerfs some cards on purpose (e.g. Ouroboros resets to 1/1 each run; Stoat is 1/2, not the story mode's 1/3).
 
-The site documents these limitations in its *Warnings & limitations* section as well.
+The site documents these limitations in its _Warnings & limitations_ section as well.
 
 ---
 
@@ -120,7 +120,7 @@ The site documents these limitations in its *Warnings & limitations* section as 
 
 You are responsible for your own save files. This is an unofficial fan tool, provided as-is with no warranty. The author is **not responsible for corrupted, lost, or otherwise damaged save files**. Always keep a backup of `SaveFile.gwsave` before making changes.
 
-Inscryption is © Daniel Mullins Games. Card faces and some sigil glyphs are derived from community reference sheets of the game's cards; the other sigil icons, frames and textures are drawn by this project. See the site's *Credits & sources* for details.
+Inscryption is © Daniel Mullins Games. Card faces and some sigil glyphs are derived from community reference sheets of the game's cards; the other sigil icons, frames and textures are drawn by this project. See the site's _Credits & sources_ for details.
 
 ---
 
